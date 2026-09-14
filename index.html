@@ -1,1 +1,477 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login Sistem</title>
 
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+    }
+
+    body {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      color: #fff;
+      background:
+        radial-gradient(circle at top left, #294477, transparent 35%),
+        radial-gradient(circle at bottom right, #612277, transparent 35%),
+        #090d19;
+    }
+
+    .card {
+      width: 100%;
+      max-width: 430px;
+      padding: 35px 30px;
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      border-radius: 22px;
+      background: rgba(255, 255, 255, 0.08);
+      box-shadow: 0 20px 55px rgba(0, 0, 0, 0.45);
+      backdrop-filter: blur(15px);
+    }
+
+    .logo {
+      width: 68px;
+      height: 68px;
+      display: grid;
+      place-items: center;
+      margin: 0 auto 18px;
+      border-radius: 20px;
+      font-size: 32px;
+      font-weight: bold;
+      background: linear-gradient(135deg, #19bfff, #8b45ff);
+      box-shadow: 0 10px 30px rgba(66, 113, 255, 0.4);
+    }
+
+    h1 {
+      margin-bottom: 8px;
+      text-align: center;
+      font-size: 27px;
+    }
+
+    .subtitle {
+      margin-bottom: 27px;
+      color: #abb4c9;
+      text-align: center;
+      font-size: 14px;
+      line-height: 1.5;
+    }
+
+    .input-group {
+      margin-bottom: 18px;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 8px;
+      color: #dce3f3;
+      font-size: 14px;
+      font-weight: 600;
+    }
+
+    input[type="text"],
+    input[type="password"] {
+      width: 100%;
+      height: 50px;
+      padding: 0 15px;
+      color: #fff;
+      font-size: 15px;
+      outline: none;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      border-radius: 12px;
+      background: rgba(8, 13, 28, 0.6);
+    }
+
+    input:focus {
+      border-color: #31bfff;
+      box-shadow: 0 0 0 3px rgba(49, 191, 255, 0.13);
+    }
+
+    .password-box {
+      position: relative;
+    }
+
+    .password-box input {
+      padding-right: 88px;
+    }
+
+    .show-password {
+      position: absolute;
+      top: 50%;
+      right: 12px;
+      transform: translateY(-50%);
+      border: none;
+      color: #58c9ff;
+      cursor: pointer;
+      background: transparent;
+      font-weight: bold;
+    }
+
+    .remember {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 22px;
+      color: #c8d0e2;
+      font-size: 13px;
+      cursor: pointer;
+    }
+
+    .remember input {
+      width: 16px;
+      height: 16px;
+      accent-color: #675cf2;
+    }
+
+    .login-button,
+    .menu-button,
+    .logout-button {
+      width: 100%;
+      min-height: 51px;
+      border: none;
+      border-radius: 12px;
+      color: #fff;
+      cursor: pointer;
+      font-size: 15px;
+      font-weight: bold;
+      transition: 0.2s;
+    }
+
+    .login-button {
+      background: linear-gradient(90deg, #168fd4, #7850e8);
+      box-shadow: 0 12px 24px rgba(43, 78, 214, 0.3);
+    }
+
+    .login-button:hover,
+    .menu-button:hover,
+    .logout-button:hover {
+      transform: translateY(-2px);
+      filter: brightness(1.15);
+    }
+
+    .login-button:disabled {
+      cursor: not-allowed;
+      opacity: 0.7;
+      transform: none;
+    }
+
+    #message {
+      min-height: 20px;
+      margin-top: 16px;
+      text-align: center;
+      font-size: 14px;
+    }
+
+    .success {
+      color: #54e89b;
+    }
+
+    .error {
+      color: #ff7777;
+    }
+
+    /* Menu setelah login */
+    #memberArea {
+      display: none;
+    }
+
+    .profile {
+      margin-bottom: 22px;
+      padding: 15px;
+      border: 1px solid rgba(84, 232, 155, 0.25);
+      border-radius: 13px;
+      color: #c8f8dc;
+      text-align: center;
+      background: rgba(84, 232, 155, 0.08);
+    }
+
+    .button-menu {
+      display: grid;
+      gap: 12px;
+    }
+
+    .menu-button {
+      text-align: left;
+      padding: 0 18px;
+      background: rgba(17, 26, 51, 0.85);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+    }
+
+    .menu-button span {
+      margin-right: 9px;
+      font-size: 20px;
+    }
+
+    .logout-button {
+      margin-top: 18px;
+      background: linear-gradient(90deg, #bf3049, #e05656);
+    }
+
+    .page-content {
+      display: none;
+      margin-top: 20px;
+      padding: 18px;
+      border-radius: 13px;
+      color: #dce3f3;
+      line-height: 1.6;
+      background: rgba(7, 12, 25, 0.65);
+    }
+
+    .page-content h2 {
+      margin-bottom: 8px;
+      color: #68cdff;
+      font-size: 19px;
+    }
+
+    .back-button {
+      margin-top: 14px;
+      padding: 9px 15px;
+      border: none;
+      border-radius: 8px;
+      color: #fff;
+      cursor: pointer;
+      background: #52617e;
+    }
+  </style>
+</head>
+
+<body>
+  <main class="card">
+
+    <!-- Halaman login -->
+    <section id="loginArea">
+      <div class="logo">L</div>
+
+      <h1>Selamat Datang</h1>
+      <p class="subtitle">Silakan masuk menggunakan akun Anda.</p>
+
+      <form id="loginForm">
+        <div class="input-group">
+          <label for="username">ID Pengguna</label>
+          <input
+            type="text"
+            id="username"
+            placeholder="Masukkan ID"
+            autocomplete="username"
+            required
+          >
+        </div>
+
+        <div class="input-group">
+          <label for="password">Password</label>
+
+          <div class="password-box">
+            <input
+              type="password"
+              id="password"
+              placeholder="Masukkan password"
+              autocomplete="current-password"
+              required
+            >
+
+            <button
+              type="button"
+              class="show-password"
+              id="showPassword"
+            >
+              Lihat
+            </button>
+          </div>
+        </div>
+
+        <label class="remember">
+          <input type="checkbox" id="remember">
+          Ingat ID saya
+        </label>
+
+        <button type="submit" class="login-button" id="loginButton">
+          MASUK
+        </button>
+
+        <p id="message"></p>
+      </form>
+    </section>
+
+    <!-- Menu setelah login berhasil -->
+    <section id="memberArea">
+      <div class="logo">✓</div>
+
+      <h1>Login Berhasil</h1>
+      <p class="subtitle">Silakan pilih menu yang ingin dibuka.</p>
+
+      <div class="profile">
+        Selamat datang, <strong id="memberName">admin</strong>
+      </div>
+
+      <div id="mainMenu" class="button-menu">
+        <button class="menu-button" onclick="openMenu('dashboard')">
+          <span>🏠</span> Dashboard
+        </button>
+
+        <button class="menu-button" onclick="openMenu('data')">
+          <span>👤</span> Data Pengguna
+        </button>
+
+        <button class="menu-button" onclick="openMenu('settings')">
+          <span>⚙️</span> Pengaturan
+        </button>
+
+        <button class="menu-button" onclick="openMenu('help')">
+          <span>💬</span> Bantuan
+        </button>
+      </div>
+
+      <div id="pageContent" class="page-content">
+        <h2 id="contentTitle"></h2>
+        <p id="contentText"></p>
+
+        <button class="back-button" onclick="backToMenu()">
+          Kembali ke Menu
+        </button>
+      </div>
+
+      <button class="logout-button" onclick="logout()">
+        KELUAR / LOGOUT
+      </button>
+    </section>
+  </main>
+
+  <script>
+    const loginArea = document.getElementById("loginArea");
+    const memberArea = document.getElementById("memberArea");
+    const loginForm = document.getElementById("loginForm");
+    const username = document.getElementById("username");
+    const password = document.getElementById("password");
+    const remember = document.getElementById("remember");
+    const showPassword = document.getElementById("showPassword");
+    const loginButton = document.getElementById("loginButton");
+    const message = document.getElementById("message");
+    const memberName = document.getElementById("memberName");
+    const mainMenu = document.getElementById("mainMenu");
+    const pageContent = document.getElementById("pageContent");
+    const contentTitle = document.getElementById("contentTitle");
+    const contentText = document.getElementById("contentText");
+
+    // Ganti ID dan password di sini
+    const LOGIN_ID = "admin";
+    const LOGIN_PASSWORD = "admin123";
+
+    // Mengambil ID yang telah disimpan
+    const savedUsername = localStorage.getItem("savedUsername");
+
+    if (savedUsername) {
+      username.value = savedUsername;
+      remember.checked = true;
+    }
+
+    // Memeriksa sesi login
+    if (sessionStorage.getItem("sudahLogin") === "true") {
+      showMemberArea(sessionStorage.getItem("loginUser") || LOGIN_ID);
+    }
+
+    showPassword.addEventListener("click", function () {
+      const hidden = password.type === "password";
+
+      password.type = hidden ? "text" : "password";
+      showPassword.textContent = hidden ? "Sembunyi" : "Lihat";
+    });
+
+    loginForm.addEventListener("submit", function (event) {
+      event.preventDefault();
+
+      const enteredId = username.value.trim();
+      const enteredPassword = password.value;
+
+      loginButton.disabled = true;
+      loginButton.textContent = "MEMERIKSA...";
+      message.className = "";
+      message.textContent = "";
+
+      setTimeout(function () {
+        if (
+          enteredId === LOGIN_ID &&
+          enteredPassword === LOGIN_PASSWORD
+        ) {
+          if (remember.checked) {
+            localStorage.setItem("savedUsername", enteredId);
+          } else {
+            localStorage.removeItem("savedUsername");
+          }
+
+          sessionStorage.setItem("sudahLogin", "true");
+          sessionStorage.setItem("loginUser", enteredId);
+
+          showMemberArea(enteredId);
+        } else {
+          message.className = "error";
+          message.textContent = "ID atau password salah.";
+          loginButton.disabled = false;
+          loginButton.textContent = "MASUK";
+          password.value = "";
+          password.focus();
+        }
+      }, 600);
+    });
+
+    function showMemberArea(userId) {
+      memberName.textContent = userId;
+      loginArea.style.display = "none";
+      memberArea.style.display = "block";
+      mainMenu.style.display = "grid";
+      pageContent.style.display = "none";
+    }
+
+    function openMenu(menu) {
+      const menuContent = {
+        dashboard: {
+          title: "Dashboard",
+          text: "Selamat datang di halaman dashboard utama."
+        },
+        data: {
+          title: "Data Pengguna",
+          text: "Halaman ini dapat digunakan untuk menampilkan dan mengelola data pengguna."
+        },
+        settings: {
+          title: "Pengaturan",
+          text: "Halaman ini dapat digunakan untuk mengatur akun dan tampilan sistem."
+        },
+        help: {
+          title: "Bantuan",
+          text: "Silakan hubungi administrator jika Anda mengalami kendala."
+        }
+      };
+
+      contentTitle.textContent = menuContent[menu].title;
+      contentText.textContent = menuContent[menu].text;
+
+      mainMenu.style.display = "none";
+      pageContent.style.display = "block";
+    }
+
+    function backToMenu() {
+      pageContent.style.display = "none";
+      mainMenu.style.display = "grid";
+    }
+
+    function logout() {
+      sessionStorage.removeItem("sudahLogin");
+      sessionStorage.removeItem("loginUser");
+
+      password.value = "";
+      message.textContent = "";
+      loginButton.disabled = false;
+      loginButton.textContent = "MASUK";
+
+      memberArea.style.display = "none";
+      loginArea.style.display = "block";
+    }
+  </script>
+</body>
+</html>
